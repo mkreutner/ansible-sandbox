@@ -88,3 +88,8 @@ history-clean:
 
     cp -r files home
     touch home/.bash_history
+    mkdir -p home/.ssh
+    cd home/.ssh
+    ssh-keygen -t ed25519 -C "${COMMON_USERNAME}@ansible" -f ./ssh_key_${COMMON_USERNAME}  
+    cd -
+    cp home/.ssh/ssh_key_${COMMON_USERNAME}.pub docker/server/authorized_keys

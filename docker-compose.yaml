@@ -10,8 +10,8 @@ services:
         - GID=${COMMON_GID}
         - USERNAME=${COMMON_USERNAME}
         - COMMENT=${COMMON_COMMENT}
-        - SHELL=${COMMON_SHELL:-sh}
-        - TIMEZONE=${COMMON_TIMEZONE:-UTC}
+        - SHELL=${COMMON_SHELL}
+        - TIMEZONE=${COMMON_TIMEZONE}
     container_name: ansible
     hostname: ansible
     restart: no # unless-stopped
@@ -21,3 +21,65 @@ services:
       - "./home:/home/${COMMON_USERNAME}"
     user: "${COMMON_USERNAME}"
     working_dir: "/home/${COMMON_USERNAME}"
+
+  server01:
+    build:
+      context: ./docker/server
+      dockerfile: Dockerfile.${COMMON_ENVIRONMENT}
+      args:
+        - BASE_IMG_NAME=${TARGET_IMG_NAME}
+        - BASE_IMG_TAG=${TARGET_IMG_TAG}
+        - UID=${TARGET_UID}
+        - GID=${TARGET_GID}
+        - USERNAME=${TARGET_USERNAME}
+        - COMMENT=${TARGET_COMMENT}
+        - SHELL=${TARGET_SHELL}
+        - TIMEZONE=${TARGET_TIMEZONE}
+    container_name: server01
+    hostname: server01
+    restart: no # unless-stopped
+    tty: true
+    stdin_open: true
+    user: "${TARGET_USERNAME}"
+    working_dir: "/home/${TARGET_USERNAME}"
+
+  server02:
+    build:
+      context: ./docker/server
+      dockerfile: Dockerfile.${COMMON_ENVIRONMENT}
+      args:
+        - BASE_IMG_NAME=${TARGET_IMG_NAME}
+        - BASE_IMG_TAG=${TARGET_IMG_TAG}
+        - UID=${TARGET_UID}
+        - GID=${TARGET_GID}
+        - USERNAME=${TARGET_USERNAME}
+        - COMMENT=${TARGET_COMMENT}
+        - SHELL=${TARGET_SHELL}
+        - TIMEZONE=${TARGET_TIMEZONE}
+    container_name: server02
+    hostname: server02
+    restart: no # unless-stopped
+    tty: true
+    stdin_open: true
+    user: "${TARGET_USERNAME}"
+    working_dir: "/home/${TARGET_USERNAME}"
+  server03:
+    build:
+      context: ./docker/server
+      dockerfile: Dockerfile.${COMMON_ENVIRONMENT}
+      args:
+        - BASE_IMG_NAME=${TARGET_IMG_NAME}
+        - BASE_IMG_TAG=${TARGET_IMG_TAG}
+        - UID=${TARGET_UID}
+        - GID=${TARGET_GID}
+        - USERNAME=${TARGET_USERNAME}
+        - COMMENT=${TARGET_COMMENT}
+        - SHELL=${TARGET_SHELL}
+        - TIMEZONE=${TARGET_TIMEZONE}
+    container_name: server03
+    hostname: server03
+    restart: no # unless-stopped
+    tty: true
+    stdin_open: true
+    user: "${TARGET_USERNAME}"
+    working_dir: "/home/${TARGET_USERNAME}"

@@ -27,6 +27,7 @@ RUN apt-get -qq -y update && apt-get -qq -y upgrade \
         tzdata \
         bash \
         zip \
+        openssh-server \
         iputils-ping \
     && ln -fs /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata
@@ -37,7 +38,12 @@ RUN addgroup --gid ${GID} ${USERNAME} \
     && usermod -aG sudo ${USERNAME} \
     && echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/casper
 
+RUN mkdir /home/${USERNAME}/.ssh
+COPY ./authorized_keys /home/${USERNAME}/.ssh/authorized_keys
+RUN update-rc.d ssh defaults
+
 # Set environment variables
+EXPOSE 22
 
 # Set user and working directory
 USER ${USERNAME}

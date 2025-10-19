@@ -1,0 +1,23 @@
+services:
+  ansible:
+    build:
+      context: ./docker/ansible
+      dockerfile: Dockerfile.${COMMON_ENVIRONMENT}
+      args:
+        - BASE_IMG_NAME=${BASE_IMG_NAME}
+        - BASE_IMG_TAG=${BASE_IMG_TAG}
+        - UID=${COMMON_UID}
+        - GID=${COMMON_GID}
+        - USERNAME=${COMMON_USERNAME}
+        - COMMENT=${COMMON_COMMENT}
+        - SHELL=${COMMON_SHELL:-sh}
+        - TIMEZONE=${COMMON_TIMEZONE:-UTC}
+    container_name: ansible
+    hostname: ansible
+    restart: no # unless-stopped
+    tty: true
+    stdin_open: true
+    volumes:
+      - "./home:/home/${COMMON_USERNAME}"
+    user: "${COMMON_USERNAME}"
+    working_dir: "/home/${COMMON_USERNAME}"

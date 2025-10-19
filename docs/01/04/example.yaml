@@ -1,0 +1,29 @@
+---
+# First document
+key01: value
+key02: "true"
+key03: true
+key04: 42
+keyWithoutValue: ~
+# keyCommented: ignored
+list01:
+  - one
+  - two
+  - three
+# on multiple line
+key08: |
+  vjkasdf;fgsadjfl  jklvasdjfl; jal jlkafjlksadj line 
+  af kl;dfk;dk kd fksd;k dsk dsk fkdsfk sdkfdl;sdkfdl
+  ladkl;kfksdf;ldska;
+# alternative
+key09: >
+  iopiopiop iopiopiop
+  io[iopoiopiop opopop] o[;o[o[o[pop[op[op[]]]]]]]
+---
+# Second document
+key_A: value
+key_B: "true"
+key_C: true
+key_D:
+  kA: AAAA
+  kB: BBBB

@@ -1,0 +1,43 @@
+ARG BASE_IMG_NAME=${$BASE_IMG_NAME}
+ARG BASE_IMG_TAG=${$BASE_IMG_TAG}
+
+FROM ${BASE_IMG_NAME}:${BASE_IMG_TAG}
+
+ARG BASE_IMG_NAME=${BASE_IMG_NAME}
+ARG BASE_IMG_TAG=${BASE_IMG_TAG}
+ARG UID=${UID}
+ARG GID=${GID}
+ARG USERNAME=${USERNAME}
+ARG COMMENT=${COMMENT}
+ARG SHELL=${SHELL}
+ARG TIMEZONE=${TIMEZONE}
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV TZ="${TIMEZONE}"
+
+RUN apt-get -qq -y update && apt-get -qq -y upgrade \
+    && apt-get -qq -y install \
+        vim \
+        curl \
+        wget \
+        apt-transport-https \
+        sudo \
+        git \
+        tzdata \
+        bash \
+        zip \
+    && ln -fs /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata
+
+# Create developer user
+RUN addgroup --gid ${GID} ${USERNAME} \
+    && adduser --uid ${UID} --gid ${GID} --disabled-password --gecos "${COMMENT}" --shell ${SHELL} ${USERNAME} \
+    && usermod -aG sudo ${USERNAME} \
+    && echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/casper
+
+# Set environment variables
+
+# Set user and working directory
+USER ${USERNAME}
+WORKDIR /home/${USERNAME}

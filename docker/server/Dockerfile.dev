@@ -29,6 +29,7 @@ RUN apt-get -qq -y update && apt-get -qq -y upgrade \
         zip \
         openssh-server \
         iputils-ping \
+        python3 \
     && ln -fs /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata
 

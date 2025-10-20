@@ -28,6 +28,7 @@ RUN apt-get -qq -y update && apt-get -qq -y upgrade \
         bash \
         zip \
         iputils-ping \
+        dnsutils \
     && ln -fs /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata
 

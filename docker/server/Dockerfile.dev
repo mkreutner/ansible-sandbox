@@ -44,6 +44,7 @@ RUN update-rc.d ssh defaults
 
 # Set environment variables
 EXPOSE 22
+CMD ["/usr/bin/sudo", "/usr/sbin/sshd", "-D", "-o", "ListenAddress=0.0.0.0"]
 
 # Set user and working directory
 USER ${USERNAME}

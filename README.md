@@ -20,11 +20,12 @@ just up
 just shell
 # prepare working environment
 install_all.sh
+init_ssh.sh
 # enjoy !
 cd workspace
 uv run ansible --help
 ```
 
-## Known issue
+## Known issues
 
-- [URGENT] argcomplete not working yet
+- [FIXED] argcomplete not working yet

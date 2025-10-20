@@ -21,6 +21,9 @@ services:
       - "./home:/home/${COMMON_USERNAME}"
     user: "${COMMON_USERNAME}"
     working_dir: "/home/${COMMON_USERNAME}"
+    networks:
+      ansible-network:
+        ipv4_address: 172.16.128.10
 
   server01:
     build:
@@ -40,8 +43,12 @@ services:
     restart: no # unless-stopped
     tty: true
     stdin_open: true
+    privileged: true # Required for /usr/sbin/init
     user: "${TARGET_USERNAME}"
     working_dir: "/home/${TARGET_USERNAME}"
+    networks:
+      ansible-network:
+        ipv4_address: 172.16.128.11
 
   server02:
     build:
@@ -61,8 +68,13 @@ services:
     restart: no # unless-stopped
     tty: true
     stdin_open: true
+    privileged: true # Required for /usr/sbin/init
     user: "${TARGET_USERNAME}"
     working_dir: "/home/${TARGET_USERNAME}"
+    networks:
+      ansible-network:
+        ipv4_address: 172.16.128.12
+
   server03:
     build:
       context: ./docker/server
@@ -81,5 +93,15 @@ services:
     restart: no # unless-stopped
     tty: true
     stdin_open: true
+    privileged: true # Required for /usr/sbin/init
     user: "${TARGET_USERNAME}"
     working_dir: "/home/${TARGET_USERNAME}"
+    networks:
+      ansible-network:
+        ipv4_address: 172.16.128.13
+
+networks:
+  ansible-network:
+    ipam:
+      config:
+        - subnet: 172.16.128.0/24

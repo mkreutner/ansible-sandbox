@@ -28,4 +28,10 @@ uv run ansible --help
 
 ## Known issues
 
-- [FIXED] argcomplete not working yet
+### Fixed
+
+- ✅ ssh connexion between ansible container to other server.
+
+### Open
+
+- ❌ argcomplete not working yet.

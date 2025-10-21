@@ -2,4 +2,5 @@
 !.env.example
 .bash_history
 home
+!home/workspace/*
 authorized_keys

@@ -48,17 +48,12 @@ shell SHELL="bash":
 logs:
     @docker compose logs -f -n 40 {{SERVICE}}
 
-# Run node command in SERVICE container
-node *COMMAND:
-    @docker compose exec {{SERVICE}} node {{COMMAND}}
+# Run ansible command in SERVICE container
+ansible COMMAND:
+    @docker compose exec {{SERVICE}} bash --login -c "cd ~/workspace ; uv run ansible {{COMMAND}}"
 
-# Run npm command in SERVICE container
-npm *COMMAND:
-    @docker compose exec {{SERVICE}} npm {{COMMAND}}
-
-# Run yarn command in SERVICE container
-yarn *COMMAND:
-    @docker compose exec {{SERVICE}} yarn {{COMMAND}}
+ansible-playbook COMMAND:
+    @docker compose exec {{SERVICE}} bash --login -c "cd ~/workspace ; uv run ansible-playbook {{COMMAND}}"
 
 # Clean Bash History file
 history-clean:

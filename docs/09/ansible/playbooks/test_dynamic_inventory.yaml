@@ -1,0 +1,9 @@
+---
+- name: Test nmaped dynamic inventory
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Display ip address
+      ansible.builtin.debug: 
+        msg: "{{ hostvars[inventory_hostname]['name'] }}: {{ hostvars[inventory_hostname]['ip'] }}"
+      when: inventory_hostname.startswith('rpx-')

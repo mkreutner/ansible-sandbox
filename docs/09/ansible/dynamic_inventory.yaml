@@ -1,8 +1,13 @@
 # an nmap scan specifying ports and classifying results to an inventory group
 plugin: community.general.nmap
-dns_resolve: false
-strict: false
 address: 192.168.1.0/24
 exclude: 192.168.1.1
+dns_resolve: false
+strict: false
 ports: false
+ipv4: true
 ipv6: false
+groups:
+  ignored_hosts: "'192.168.1' in name"
+  managed_hosts: "'rpx-' in name"
+  with_ssh: "ports | selectattr('service', 'equalto', 'ssh')"

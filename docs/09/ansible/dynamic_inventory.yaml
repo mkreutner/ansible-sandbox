@@ -8,6 +8,6 @@ ports: false
 ipv4: true
 ipv6: false
 groups:
-  ignored_hosts: "'192.168.1' in name"
-  managed_hosts: "'rpx-' in name"
-  with_ssh: "ports | selectattr('service', 'equalto', 'ssh')"
+  ignored_hosts: not name.startswith('rpx-')
+  rpx_dev_nodes: name.startswith('rpx-dev-')
+  rpx_prd_nodes: name.startswith('rpx-') and not name.startswith('rpx-dev-')
